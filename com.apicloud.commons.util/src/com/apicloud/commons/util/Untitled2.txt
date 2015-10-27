@@ -1,0 +1,24 @@
+	public static void copyFile(String sourcefile, String targetFile)
+			throws IOException {
+		File sourceFile = new File(sourcefile);
+		if(sourceFile.exists()) {
+			copyFile(sourceFile, new File(targetFile));
+		}
+	}
+
+        public static void copyFile(File sourcefile, File targetFile) throws IOException {
+		FileInputStream in = new FileInputStream(sourcefile);
+		BufferedInputStream inbuffer = new BufferedInputStream(in);
+		FileOutputStream out = new FileOutputStream(targetFile);
+		BufferedOutputStream outbuffer = new BufferedOutputStream(out);
+		byte[] b = new byte[1024];
+		int length = 0;
+		while ((length = inbuffer.read(b)) != -1) {
+			outbuffer.write(b, 0, length);
+		}
+		outbuffer.flush();
+		inbuffer.close();
+		outbuffer.close();
+		out.close();
+		in.close();
+	}
